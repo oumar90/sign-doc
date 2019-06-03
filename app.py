@@ -11,7 +11,7 @@ from module import *
 # UPLOAD_FOLDER = '/home/oudjira/Devs/Sign/sign-doc/medias/uploads'
 # ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__)
 avatars = Avatars(app)
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # app.config['IMAGES_PATH'] = UPLOAD_FOLDER
