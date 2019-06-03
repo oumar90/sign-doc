@@ -1,0 +1,45 @@
+<header class=" site-header">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark ml-auto ">
+        <div class="container">
+            <a href="{{ url_for('home') }}" class="navbar-brand myDocs">Docs Sign</a>
+
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbaraid">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbaraid">
+                 <ul class="navbar-nav text-center ml-auto myLi " >
+
+                     <li class="nav-item btn btn-outline-info" >
+                        <a href="{{ url_for('home') }}" class="nav-link">Accueil</a>
+                    </li>
+
+                    {% if session['pseudo'] %}              
+                     <li class="nav-item btn btn-outline-info" >
+                        <a href="{{ url_for('profile') }}" class="nav-link">Profile</a>
+                    </li>
+                   <li class="nav-item btn btn-outline-info" >
+                        <a href="{{ url_for('generatekey') }}" class="nav-link">Génere clé</a>
+                    </li>
+                      <li class="nav-item btn btn-outline-info" >
+                        <a href="{{ url_for('generatecert') }}" class="nav-link">Générer cert</a>
+                    </li>
+                     <li class="nav-item btn btn-outline-info" >
+                        <a href="{{ url_for('logout') }}" class="nav-link">Déconnexion</a>
+                    </li>
+
+                   {% else %}
+                    <li class="nav-item btn btn-outline-info" >
+                        <a href="{{ url_for('register') }}" class="nav-link">S'inscrire</a>
+                    </li>
+
+                     <li class="nav-item btn btn-outline-info" >
+                        <a href="{{ url_for('login') }}" class="nav-link">Connexion</a>
+                     </li>
+                     
+                    {% endif %}
+                 </ul>
+         </div>
+    </div>
+ </nav>
+</header

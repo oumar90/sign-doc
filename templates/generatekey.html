@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %} Keys {% endblock %}
+{% block content %}
+	<h1>Generate keys</h1>
+	<form action="/generatekey" method="POST" enctype="multipart/form-data">
+		
+		<div class="form-group">
+			<label for="taille">Taille:</label>
+			<input type="text" class="form-control" id="taille" name="taille" placeholder="par defaut 2048">
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Génerer une paire de clé</button>
+		</div>
+	</form>
+	<hr>
+	
+	<form action="">
+		<div class="form-group">
+			<label for="publickeys">Clé public:</label>
+			<textarea name="publickeys" id="publickeys" cols="30" rows="5" class="form-control">{{ pub }}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="privatekeys">Clé privée:</label>
+			<textarea name="privatekeys" id="privatekeys" cols="30" rows="10" class="form-control">{{ priv }}</textarea>
+		</div>
+		
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary btn-lg">Enregister les clés</button>
+		</div>	
+				
+		</div>
+	</form>
+
+
+{% endblock %}

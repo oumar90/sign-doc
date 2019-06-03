@@ -1,0 +1,104 @@
+/*Fonts*/
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+/* open-sans-regular - cyrillic_latin */
+
+/*Reset*/
+* {
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+/*Helpers*/
+.wrapper{
+	width: 1440px;
+	max-width: 90%;
+	margin:0 auto;
+}
+
+.text-center{
+	text-align: center;
+}
+
+/*Main style*/
+body {
+	
+	background: #f2f2f2;
+}
+
+.site-header{
+	background-color: #000;
+	border-top: 4px solid #1ce;
+	padding: 1em 0;
+}
+
+.navbar .navbar-expand-sm{
+	font-size: 1.8em;
+	color: #fff;
+	text-decoration-color: none;
+}
+
+.navbar .navbar-right{
+	float: right;
+}
+
+.myLi  a{
+	font-size: 1.3em;
+}
+.myDocs{
+	font-size: 2.5em;
+}
+
+
+.navbar .navbar-expand-sm li{
+	display: inline-block;
+	list-style: none;
+	margin-top: 0.3em;
+	margin-right: 0.8em;
+}
+
+
+.navbar .navbar-right li:last-child{
+
+	margin-right: 0;
+}
+
+.navbar .navbar-right li a{
+	color: #fff;
+	text-decoration: none;
+
+
+}
+
+.navbar .navbar-right li a:hover{
+	color: #1ce;
+	
+}
+
+.footer{
+	margin-top: 3em;
+	color: rgba(0,0,0,0.6);
+}
+
+.footer:before{
+	content: " ";
+	display:block;
+	height: 1px;
+	background-color: #1ce;
+	margin: 0.5em auto;
+	width: 10%;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 5px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+
+.account-heading {
+  font-size: 3.5rem;
+}
