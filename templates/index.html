@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Home</title>
+</head>
+<body>
+	<div class="container">
+	<!-- 	<h1>File input</h1>
+		<form method="POST" action="/upload" enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="inputFile">File input:</label>
+				<input type="file" name="inputFile">
+			</div>
+			<button class="btn btn-default">Subbmit</button>
+		</form>
+		<hr> -->
+		
+		<form action="/" method="POST">
+			{{ form.csrf_token }}
+			{{  form.opts }}
+			<ul>
+				{% for error in form.opts.errors  %}
+					<li style="color: red;">{{ error }}</li>
+				{% endfor %}
+			</ul>
+			<input type="submit">
+		</form>
+	</div>
+</body>
+</html>
