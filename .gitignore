@@ -8,7 +8,7 @@
 *.gitignore
 # C extensions
 *.so
-medias/
+/medias/*
 # Distribution / packaging
 .Python
 build/
