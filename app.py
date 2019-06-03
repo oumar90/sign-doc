@@ -95,7 +95,7 @@ def login():
 		cur.close()
 
 		if user is None:
-			flash("Le pseudo n'existe pas, veiller crée une compte svp!","warning")
+			flash("Le pseudo n'existe pas, veiller crée une compte svp!","danger")
 
 		elif len(user) > 0:
 			if bcrypt.hashpw(password, user['password'].encode('utf-8')) == user['password'].encode('utf-8'):
