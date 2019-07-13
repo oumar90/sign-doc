@@ -1,0 +1,11 @@
+
+	
+		<nav class="nav nav-pills nav-justified">
+			<a class="nav-item nav-link {{ 'active' if active_page == 'profile' else '' }}" href="{{ url_for('profile') }}">Profile</a>
+			<a class="nav-item nav-link {{ 'active' if active_page == 'send_message' else '' }}" href="{{ url_for('send_message') }}">Envoyer message</a>
+			<a class="nav-item nav-link {{ 'active' if active_page == 'receive_message' else '' }}" href="{{ url_for('receive_message') }}">Messages reçus</a>
+			<a class="nav-item nav-link {{ 'active' if active_page == 'keys' else '' }}" href="{{ url_for('generatekey') }}">Generate Keys</a>
+			<a class="nav-item nav-link {{ 'active' if active_page == 'showkeys' else '' }}" href="{{ url_for('show_keys') }}">Trousseaux</a>
+			
+		</nav>
+	<hr>

@@ -1,11 +1,13 @@
 # Byte-compiled / optimized / DLL files
-*__pycache__/
+#
+__pycache__/
 *.py[cod]
 *$py.class
 *.db
 *.txt
 *.save
 *.gitignore
+*.pem
 # C extensions
 *.so
 /medias/*

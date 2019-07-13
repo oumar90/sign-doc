@@ -1,0 +1,27 @@
+{% extends "profiles/base.html" %}
+{% set active_page = "profile" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+	
+		<div class="content-section">
+			<div class="media">
+				<img src="{{ avatars.default() }}" alt="" class="rounded-circle ccount-img">
+				<div class="media-body">
+					<h2 class="account-heading">{{ current_user.pseudo  }}</h2>
+					<i class="text-secondary">📧 {{ current_user.email  }}</i>
+				</div>
+			<br>
+				<h5 class="" >
+					{{ current_user.nom  }} {{ current_user.prenom }}
+				</h5>
+			</div>
+				<br>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, est. Sint mollitia facere consequatur odio vel quod explicabo tempora, incidunt libero quo doloribus quasi assumenda ad fuga cum, fugit fugiat.</p>
+			<div></div>
+		</div>
+	
+		
+{% endblock %}

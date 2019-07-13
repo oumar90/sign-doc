@@ -1,0 +1,37 @@
+<!-- include header -->
+{% include "includes/_header.html" %}
+<!-- End include -->
+
+{% block charset %} {% endblock %}
+
+{% block stylesheet %} {% endblock %}
+
+<!-- Begin nav -->
+{% include "includes/_nav.html" %}
+<!-- End nav -->
+
+<!-- Begin main -->
+        <div class="container-fluid">
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                       
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                            {{ message }}
+                    </div>
+                    {% endfor %}
+              {% endif %}
+            {% endwith %}
+           
+            <div class="wrapper">
+               {% block content %}{% endblock %}
+            </div>
+            
+        </div>
+<!-- End Main -->
+
+<!-- include footer -->
+{% include "includes/_footer.html" %}
+<!-- End include -->

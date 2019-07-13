@@ -1,0 +1,12 @@
+{% extends "profiles/base.html" %}
+{% set active_page = "receive_message" %}
+{% block title %}Message{% endblock %}
+{% block body %}
+	<div class="container">
+		{% for msg in  messages %}
+			<p>
+				<a href="/profile/single_message/{{msg.id_msg}}">{{ msg.author.nom  }} {{ msg.author.prenom }} : {{ msg.contenu }}</a>
+			</p>
+		{% endfor %}
+	</div>
+{% endblock %}s

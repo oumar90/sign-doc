@@ -1,0 +1,46 @@
+{% extends "profiles/base.html" %}
+
+{% set active_page = "keys" %}
+
+{% block title %} Keys {% endblock %}
+
+{% block body %}
+	<form action="" method="POST" role="form">
+		<div class="row">
+			<div class="col-lg-6">
+				<input type="text" class="form-control" id="taille" name="taille" placeholder="par defaut 2048">
+			</div> 
+			<div class="col-lg-6">
+				<input type="date" class="form-control" id="date" name="date">
+			</div>
+		</div>
+
+		<br>
+		
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Génerer et sauvegarder une paire de clé </button>
+		</div>
+
+	</form>
+	
+	<hr>
+	
+	<form action="" method="POST">
+		<div class="form-group">
+			<label for="publickeys">Clé public:</label>
+			<textarea name="publickeys" cols="30" rows="5" class="form-control">{{ pub }}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="privatekeys">Clé privée:</label>
+			<textarea name="privatekeys" cols="30" rows="10" class="form-control">{{ priv }}</textarea>
+
+		</div>
+		
+<!-- 
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary btn-lg">Télécharger</button>
+		</div>	 -->
+	</form>
+
+
+{% endblock %}

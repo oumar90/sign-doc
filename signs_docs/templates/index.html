@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% set active_page = "accueil" %}
+
+{% block title %}Home{% endblock %}
+
+{% block stylesheet %} 
+	<link rel="stylesheet" href="{{ url_for('static', filename='mains.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    {% include "includes/_main.html" %}
+
+{% endblock %}

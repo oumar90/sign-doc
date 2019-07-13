@@ -1,0 +1,40 @@
+{% extends "profiles/base.html" %}
+{% set active_page = "send_message" %}
+{% block charset %} <meta charset="utf-8"> {% endblock %}
+{% block title %}Send Message{% endblock %}
+{% block body %}
+	<script src="{{ url_for('static', filename='js/ckeditor5-build-classic/ckeditor.js')}}"></script>
+	<div class="col-lg-6">
+		<form method="POST" enctype="multipart/form-data">
+
+			<div class="form-group">
+				<textarea class="form-control is-valid" name="description" id="editor" cols="10" rows="3"></textarea>
+			</div>
+			
+			<div class="form-group">
+				<label for="privatekey">Clef privée:</label>
+				<input type="file" class="form-control is-valid" accept="medias/uploads/*" name="privatekey" id="privatekey">
+			</div>
+			
+			<div class="form-group">
+				<label for="desc">Destinataire:</label>
+				<select name="email" class="custom-select is-valid">
+					<option selected>Destinataire</option>
+					{% for u in user %}
+						<option >{{ u.email }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="customFile">Choisir un fichier :</label>
+				<input type="file" class="form-control is-valid" accept="text/plain" name="customFile" id="customFile">
+			</div>
+			
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary btn-block">Envoyer</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}

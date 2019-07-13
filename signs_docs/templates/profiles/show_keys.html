@@ -1,0 +1,36 @@
+{% extends "profiles/base.html" %}
+{% set active_page = "showkeys" %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+	
+	<h1>Trousseau de clefs publiques</h1>
+
+		<table class="table table-sm table-striped table-bordered">
+			<thead>
+				<th>ID</th>
+				<th>NOM DE LA CLEF</th>
+				<th>DATE D'EXPIRATION</th>
+				<th>TÉLÉCHARGER</th>
+				<th>SUPPRIMER</th>
+			</thead>
+			<tbody>
+				{% for c in all_keys %}
+				<tr>
+					<td>{{ c.id_key }}</td>
+					<td>{{ c.nom_public_key }}</td>
+					<td>{{ c.date_end_key }}</td>
+					<td>
+						<a href="{{url_for('static', filename='keys')}}/{{ c.nom_public_key }}" class="btn btn-primary" target="_blank">Télécharger</a>
+					</td>
+					<td>
+						<form action="/delete" method="POST">
+						<input type="hidden" value="{{ c.nom_public_key }}" name="public_key">
+						<input type="submit" class="btn btn-danger" value="Supprimer">
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	
+{% endblock %}
