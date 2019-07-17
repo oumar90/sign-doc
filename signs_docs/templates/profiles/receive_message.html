@@ -4,9 +4,11 @@
 {% block body %}
 	<div class="container">
 		{% for msg in  messages %}
-			<p>
-				<a href="/profile/single_message/{{msg.id_msg}}">{{ msg.author.nom  }} {{ msg.author.prenom }} : {{ msg.contenu }}</a>
-			</p>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<a href="/profile/single_message/{{msg.id_msg}}">{{ msg.author.nom  }} {{ msg.author.prenom }} : {{ msg.contenu }}</a>
+				</li>
+			</ul>
 		{% endfor %}
 	</div>
-{% endblock %}s
+{% endblock %}

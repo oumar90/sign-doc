@@ -3,7 +3,6 @@
 {% block title %}Profile{% endblock %}
 {% block body %}
 	
-	<h1>Annuaire</h1>
 
 		<table class="table table-sm table-striped table-bordered">
 			<thead>
@@ -20,13 +19,33 @@
 					<td>{{ c.nom_public_key }}</td>
 					<td>{{ c.date_end_key }}</td>
 					<td>
-						<a href="{{url_for('static', filename='keys')}}/{{ c.nom_public_key }}" class="btn btn-primary" target="_blank">Télécharger</a>
+						<a href="{{url_for('static', filename='keys')}}/{{ c.nom_public_key }}" class="btn btn-primary" >Télécharger</a>
 					</td>
 					<td>
-						<form action="/delete" method="POST">
-						<input type="hidden" value="{{ c.nom_public_key }}" name="public_key">
-						<input type="submit" class="btn btn-danger" value="Supprimer">
-						</form>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{c.id_key}}">
+					  Supprimer
+						</button>
+						<!-- Modal -->
+						<div class="modal fade" id="deleteModal{{c.id_key}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="deleteModalLabel">Vous êtes sur le point de supprimer ?</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-seconary" data-dismiss="modal">Annuler</button>
+										<form action="{{ url_for('delete_key')}}" method="POST">
+											<input type="hidden" value="{{ c.nom_public_key }}" name="public_key">
+											<input type="submit" class="btn btn-danger" value="Supprimer">
+										</form>
+									</div>
+								</div>
+							</div>
+							
+						</div>
 					</td>
 				</tr>
 				{% endfor %}

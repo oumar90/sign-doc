@@ -36,6 +36,7 @@ class Message(db.Model):
 	author = db.relationship('User', backref=db.backref('author', lazy=True))
 	date_envoi = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 	date_recep = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	data = db.Column(db.LargeBinary)
 
 
 	def __repr__(self):

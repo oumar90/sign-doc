@@ -10,12 +10,13 @@ from flask_avatars import Avatars
 
 
 UPLOAD_FOLDER = 'signs_docs/static/medias/uploads/'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'odt', 'docx'])
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='b4f8d207f45b6ca20d28a8f11859b737'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://admin:admin123@localhost/flaskappsign'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db = SQLAlchemy(app)
 # csrf = CSRFProtect(app)

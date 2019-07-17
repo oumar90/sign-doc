@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, redirect, 
-request, url_for, session, flash, jsonify,g, current_app, send_file)
+request, url_for, session, flash, jsonify,g, current_app, send_file, abort)
 from signs_docs import db, bcrypt, app, login_manager, allowed_file
 from flask_login import login_user, logout_user, login_required, current_user
 from signs_docs.models import User, Message, GenerateKeys, StockeKeys
@@ -7,7 +7,7 @@ from sqlalchemy import text
 from werkzeug.utils import secure_filename
 
 
-from signs_docs.module import  *
+#from signs_docs.module import  *
 from oudjirasign import *
 import os
 import secrets 
@@ -19,8 +19,8 @@ from base64 import b64encode
 def save_file(fichier):
 	hash_fichier = secrets.token_urlsafe(10)
 	_,file_extention = os.path.splitext(fichier.filename)
-	nom_fichier = hash_fichier + file_extention
-	path_fichier = os.path.join(current_app.root_path, "static/medias", nom_fichier)
+	nom_fichier = fichier.filename
+	path_fichier = os.path.join(current_app.root_path, "static/medias/uploads/", nom_fichier)
 	fichier.save(path_fichier)
 	return nom_fichier
 
@@ -178,16 +178,35 @@ def save_key():
 		publickeys = request.form.get('publickeys')
 		privatekeys = request.form.get('privatekeys')
 
-
 		return render_template("profiles/save_key.html")
-@app.route('/delete', methods=['POST'])
-def delete():
+
+
+@app.route('/profile/show_keys/', methods=['GET', 'POST'])
+@login_required
+def show_keys():
+
+	all_keys = GenerateKeys.query.order_by(GenerateKeys.date_create_key.desc())
+	
+	if request.method == "GET":
+		return render_template('profiles/show_keys.html', all_keys=all_keys)
+	return render_template('profiles/show_keys.html', all_keys=all_keys)
+
+
+@app.route('/profiles/show_keys/delete', methods=['POST'])
+def delete_key():
 	public_key = request.form['public_key']
 	
 	key = GenerateKeys.query.filter_by(nom_public_key=public_key).first()
-	db.session.delete(key)
-	db.session.commit()
-	return redirect(url_for('show_keys'))
+	# key1 = GenerateKeys.query.get_or_404(id_key)
+	print(key.nom_public_key)
+	if current_user.pseudo not in key.nom_public_key:
+		flash("Vous n'avez pas le droit de supprimer ce clef", "danger")
+		return redirect(url_for("show_keys"))
+	else:
+		db.session.delete(key)
+		db.session.commit()
+		flash('Votre clef a été bien supprimé', 'success')
+		return redirect(url_for('show_keys'))
 
 # Route qui gère la génération du certificat
 @app.route('/generatecert', methods=['GET', 'POST'])
@@ -236,6 +255,7 @@ def send_message():
 		description = request.form.get('description')
 		email= request.form.get('email')
 		customFile = save_file(request.files.get('customFile'))
+		# customFile = request.files['customFile']
 		user1 = User.query.filter_by(email=email).first()
 		private_path = request.files['privatekey']
 
@@ -243,10 +263,9 @@ def send_message():
 			privatekey = private_path.read()
 			privatekey1 = importPrivateKey(privatekey)
 			signature = signer(description, privatekey1)
-
-
 			if user1.email:
-				message = Message(contenu=description,user_id=user1.id,signature=signature,fichier=customFile,author=current_user)
+				message = Message(contenu=description,user_id=user1.id,\
+					signature=signature,fichier=customFile, author=current_user)
 				db.session.add(message)
 				db.session.commit()
 				flash("Votre message a été envoyé avec succès", "success")
@@ -276,16 +295,16 @@ def single_message(id_msg):
 	# On recupère le message par leur id
 	message = Message.query.get(id_msg)
 
-	doc_path = "signs_docs/static/medias/" + message.fichier
-
-	p = open(doc_path, 'rb')
+	# doc_path = "signs_docs/static/medias/" + message.fichier
+	# p = open(doc_path, 'rb')
 	
-	pdfile = p.read()
+	# pdfile = p.read()
+	# print(pdfile)
 
 	# s = hacherdocs(pdfile)
 
 	if request.method == 'GET':
-		return render_template("profiles/single_message.html", message=message, pdfile=pdfile)
+		return render_template("profiles/single_message.html", message=message)
 
 	# Si on est en mode post, on recupère la clef publique et le message
 	publickey = request.files['publickey']
@@ -295,7 +314,7 @@ def single_message(id_msg):
 	# On test le champs de clef publique, si c'est vide on léve une exception
 	else:
 		flash("Tous les champs doivent être remplis! ", "danger")
-		return render_template("profiles/single_message.html", message=message, pdfile=pdfile)
+		return render_template("profiles/single_message.html", message=message)
 
 	# On essaie de verifier la signature
 	try:
@@ -308,25 +327,16 @@ def single_message(id_msg):
 		
 		if verify:
 			flash("Votre signature est valide.", "success")
-			return render_template("profiles/single_message.html", message=message, pdfile=pdfile)
+			return render_template("profiles/single_message.html", message=message)
 		else:
 			flash("Votre signature invalide!!!", "danger")
-			return render_template("profiles/single_message.html", message=message, pdfile=pdfile)
+			return render_template("profiles/single_message.html", message=message)
 
 	# Dans le cas où on arrive pas à importer la clef publique
 	except : 
 		flash("Veiller entrer une clef valide!", "danger")
-		return render_template("profiles/single_message.html", message=message, pdfile=pdfile)
+		return render_template("profiles/single_message.html", message=message)
 
-@app.route('/profile/show_keys/', methods=['GET', 'POST'])
-@login_required
-def show_keys():
-
-	all_keys = GenerateKeys.query.order_by(GenerateKeys.date_create_key.desc())
-	
-	if request.method == "GET":
-		return render_template('profiles/show_keys.html', all_keys=all_keys)
-	return render_template('profiles/show_keys.html', all_keys=all_keys)
 
 # @app.route('/profile/show_key/<int:id_key>', methods=['GET', 'POST'])
 # @login_required

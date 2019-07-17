@@ -2,23 +2,33 @@
 {% set active_page = "receive_message" %}
 {% block title %}Message{% endblock %}
 {% block body %}
+	<style>
+		label.myLabel input[type="file"] {
+	position:absolute;
+	top: -1000px;
+	}
+	</style>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 	<div class="container">
 		<div class="content-section">
 			<form action="" method="POST" enctype="multipart/form-data" role="form">
 				<textarea name="contenu" id="" cols="30" rows="5" class="form-control is-valid">{{ message.contenu }}</textarea>
 				<hr>
-				<!--  <textarea name="publickey" id="" cols="30" rows="5" class="form-control is-valid" placeholder="Entrer la clef public"></textarea> -->
-				<label for="publickey">Clef publique :</label>
-				<input type="file" class="form-control is-valid" accept="static/keys/*" name="publickey" id="publickey",>
+				<a href="{{url_for('static', filename='medias/uploads')}}/{{message.fichier}}" target="_blank">{{message.fichier}}</a>
 				<hr>
-				
-				<button type="submit" class="btn btn-outline-primary" >Verifier la signature</button>
+				<div class="row">
+					<div class="col-lg-6">
+						<label class="myLabel">
+							<input type="file" class="form-control is-valid hidden" name="publickey" id="publickey">
+							<span class="btn btn-outline-primary">choisir votre clef publique</span>
+						</label>
+					</div>
+					<div class="" style="padding-left: 190px;">
+						<button type="submit" class="btn btn-outline-primary" >Verifier la signature</button>
+					</div>
+				</div>
 			</form>
 		</div>
-		<!-- <div class="embed-responsive embed-responsive-21by9">
-			<object class="embed-responsive-item" data="{{ pdfile }}"  width="400" height="400" type="application/pdf"></object>
-		</div> -->
 		
 	</div>
 {% endblock %}
